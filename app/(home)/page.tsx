@@ -1,6 +1,6 @@
 import { format } from "date-fns"
 import Header from "../_components/header";
-import { ptBR } from "date-fns/locale";
+import { ptBR, enUS } from "date-fns/locale";
 import Search from "./_components/search";
 import BookingItem from "../_components/booking-item";
 import { db } from "../_lib/prisma";
@@ -14,10 +14,10 @@ export default async function Home() {
     <div>
       <Header />
       <div className="px-5 pt-5">
-        <h2 className="text-xl font-bold"> Olá, User</h2>
+        <h2 className="text-xl font-bold"> Hello, User</h2>
         <p className="capitalize text-sm">
-          {format(new Date(), "EEEE',' dd 'de' MMMM", {
-            locale: ptBR
+          {format(new Date(), "EEEE',' MMMM do", {
+            locale: enUS
           })}
         </p>
       </div>

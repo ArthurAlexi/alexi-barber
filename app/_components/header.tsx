@@ -5,19 +5,10 @@ import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import SideMenu from "./SideMenu";
 
 const Header = () => {
-
-    const {} = useSession()
-
-    const handleLoginClick = async () => {
-        await signIn();
-    }
-
-    const handleLogoutClick = async () => {
-        signOut()
-    }
     return (
         <header>
             <Card>
@@ -25,9 +16,16 @@ const Header = () => {
                     <Link href="/">
                         <Image src="/logo.png" alt="FSW Barber" height={18} width={120} />
                     </Link>
-                    <Button variant="outline" size="icon">
-                        <MenuIcon size={16} />
-                    </Button>
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button variant="outline" size="icon">
+                                <MenuIcon size={16} />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent className="p-0">
+                            <SideMenu/>
+                        </SheetContent>
+                    </Sheet>
                 </CardContent>
             </Card>
         </header>
