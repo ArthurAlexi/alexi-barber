@@ -19,7 +19,7 @@ model User {
 model Barbershop {
   id       String    @id @default(uuid())
   name     String
-  addres   String
+  address  String
   imageUrl String
   Service  Service[]
   Booking  Booking[]
@@ -29,6 +29,7 @@ model Service {
   id           String  @id @default(uuid())
   name         String
   price        Decimal @db.Decimal(10, 2)
+  imageUrl     String
   description  String
   barbershopId String
 
