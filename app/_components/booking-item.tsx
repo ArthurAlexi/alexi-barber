@@ -19,7 +19,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
     const isBookingFineshed = isPast(booking.date)
 
     return (
-        <Card>
+        <Card className="min-w-full">
             <CardContent className="py-5 flex  px-0">
                 <div className="flex flex-col gap-2 py-5 flex-[3] px-5 pl-5">
                     <Badge className="w-fit" variant={isBookingFineshed ? 'secondary' : 'default'}>{ isBookingFineshed ? 'Finished' : 'confirmed'}</Badge>
