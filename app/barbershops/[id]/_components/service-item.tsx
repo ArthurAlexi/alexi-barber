@@ -5,11 +5,13 @@ import { Calendar } from "@/app/_components/ui/calendar"
 import { Card, CardContent } from "@/app/_components/ui/card"
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/app/_components/ui/sheet"
 import { Barbershop, Service } from "@prisma/client"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import Image from "next/image"
 import { useMemo, useState } from "react"
 import { generateDayTimeList } from "../_helpers/hours"
-import { format } from "date-fns"
+import { format, setHours, setMinutes } from "date-fns"
+import { saveBooking } from "../_actions/save-booking"
+import { Loader2 } from "lucide-react"
 
 interface ServiceItemProps {
     barbershop: Barbershop
@@ -18,13 +20,13 @@ interface ServiceItemProps {
 }
 
 const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps) => {
+    const { data } = useSession()
     const [date, setDate] = useState<Date | undefined>()
     const [hour, setHour] = useState<String | undefined>()
+    const [submitIsLoading, setSubmitIsLoading] = useState(false)
 
     const handleBookingClick = () => {
-        if (isAuthenticated) {
-
-        } else {
+        if (!isAuthenticated) {
             return signIn('google')
         }
     }
@@ -41,6 +43,31 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
     const timeList = useMemo(() => {
         return date ? generateDayTimeList(date) : []
     }, [date])
+
+    const handleBookingSubmit = async () => {
+        setSubmitIsLoading(true)
+        try {
+            if (!hour || !date || !data?.user) return;
+
+            const dateHour = Number(hour.split(":")[0]);
+            const dateMinutes = Number(hour.split(":")[1]);
+
+            const newDate = setMinutes(setHours(date, dateHour), dateMinutes)
+
+            await saveBooking({
+                barbershopId: barbershop.id,
+                serviceId: service.id,
+                userId: (data.user as any).id,
+                date: newDate
+            })
+
+        } catch (err) {
+            console.log(err)
+        }finally{
+            setSubmitIsLoading(false)
+        }
+
+    }
 
     return (
         <Card>
@@ -144,15 +171,20 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                                                     )
                                                 }
                                                 <div className="flex justify-between">
-                                                            <h3 className="text-gray-400">Barbershop</h3>
-                                                            <h4 className="text-sm capitalize">{barbershop.name}</h4>
-                                                        </div>
+                                                    <h3 className="text-gray-400">Barbershop</h3>
+                                                    <h4 className="text-sm capitalize">{barbershop.name}</h4>
+                                                </div>
                                                 <div className="flex justify-between"></div>
                                             </CardContent>
-                                        </Card>              
+                                        </Card>
                                     </div>
                                     <SheetFooter className="px-5">
-                                                <Button disabled={!hour || !date}>Confirm</Button>
+                                        <Button disabled={!hour || !date || submitIsLoading} onClick={handleBookingSubmit}>
+                                            {
+                                                submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>  
+                                            }
+                                            Confirm
+                                        </Button>
                                     </SheetFooter>
                                 </SheetContent>
                             </Sheet>
