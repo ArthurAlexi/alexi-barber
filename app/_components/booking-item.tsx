@@ -2,27 +2,41 @@
 import { Badge } from "./ui/badge"
 import { Card, CardContent } from "./ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { Booking, Prisma } from "@prisma/client"
+import { format, isPast } from "date-fns"
 
-const BookingItem = () => {
+interface BookingItemProps{
+    booking : Prisma.BookingGetPayload<{
+        include: {
+            service: true,
+            barbershop: true
+        }
+    }>
+}
+
+const BookingItem = ({booking} : BookingItemProps) => {
+
+    const isBookingFineshed = isPast(booking.date)
+
     return (
         <Card>
-            <CardContent className="p-5 flex justify-between py-0">
-                <div className="flex flex-col gap-2 py-5">
-                    <Badge className="bg-[#221C3D] text-primary hover:bg-[#221C3D] w-fit">Confirmado</Badge>
-                    <h2 className="font-bold"> Haircut</h2>
+            <CardContent className="py-5 flex  px-0">
+                <div className="flex flex-col gap-2 py-5 flex-[3] px-5 pl-5">
+                    <Badge className="w-fit" variant={isBookingFineshed ? 'secondary' : 'default'}>{ isBookingFineshed ? 'Finished' : 'confirmed'}</Badge>
+                    <h2 className="font-bold"> {booking.service.name}</h2>
                     <div className="flex items-center gap-2">
-                        <Avatar className="h-6 w-6">
-                            <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
+                        <Avatar className="h-10 w-10">
+                            <AvatarImage src={booking.barbershop.imageUrl} />
                             <AvatarFallback>A</AvatarFallback>
                         </Avatar>
-                        <h3 className="text-sm">Barbershorp</h3>
+                        <h3 className="text-sm">{booking.barbershop.name}</h3>
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center border-l border-solid border-secondary">
-                    <p className="text-sm">February </p>
-                    <p className="text-2xl">18th</p>
-                    <p className="text-sm">09:45</p>
+                <div className="flex flex-col flex-1 items-center justify-center border-l border-solid border-secondary">
+                    <p className="text-sm capitalize">{format(booking.date, 'MMMM')} </p>
+                    <p className="text-2xl">{format(booking.date, 'do')}</p>
+                    <p className="text-sm">{format(booking.date, "hh:mm")}</p>
                 </div>
             </CardContent>
         </Card>
