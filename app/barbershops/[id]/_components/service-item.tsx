@@ -12,6 +12,8 @@ import { generateDayTimeList } from "../_helpers/hours"
 import { format, setHours, setMinutes } from "date-fns"
 import { saveBooking } from "../_actions/save-booking"
 import { Loader2 } from "lucide-react"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 interface ServiceItemProps {
     barbershop: Barbershop
@@ -20,10 +22,12 @@ interface ServiceItemProps {
 }
 
 const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps) => {
+    const router = useRouter()
     const { data } = useSession()
     const [date, setDate] = useState<Date | undefined>()
     const [hour, setHour] = useState<String | undefined>()
     const [submitIsLoading, setSubmitIsLoading] = useState(false)
+    const [sheetIsOpen, setSheetIsOpen] = useState(false)
 
     const handleBookingClick = () => {
         if (!isAuthenticated) {
@@ -60,7 +64,16 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                 userId: (data.user as any).id,
                 date: newDate
             })
-
+            setSheetIsOpen(false)
+            setDate(undefined)
+            setHour(undefined)
+            toast('reservation made',{
+                description: format(newDate, "'To' dd',' MMMM 'at' HH':'mm'.'"),
+                action: {
+                    label: 'show',
+                    onClick: () => router.push('/bookings')
+                }
+            })
         } catch (err) {
             console.log(err)
         }finally{
@@ -87,7 +100,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                                     currency: "BRL",
                                 }).format(Number(service.price))}
                             </p>
-                            <Sheet>
+                            <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                                 <SheetTrigger asChild>
                                     <Button className="text-primary" variant='secondary' onClick={handleBookingClick}>reserve</Button>
                                 </SheetTrigger>
