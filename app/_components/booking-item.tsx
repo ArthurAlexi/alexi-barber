@@ -20,8 +20,8 @@ const BookingItem = ({booking} : BookingItemProps) => {
 
     return (
         <Card className="min-w-full">
-            <CardContent className="py-5 flex  px-0">
-                <div className="flex flex-col gap-2 py-5 flex-[3] px-5 pl-5">
+            <CardContent className="py-0 flex  px-0">
+                <div className="flex flex-col gap-2 py-5 flex-[3] pl-5">
                     <Badge className="w-fit" variant={isBookingFineshed ? 'secondary' : 'default'}>{ isBookingFineshed ? 'Finished' : 'confirmed'}</Badge>
                     <h2 className="font-bold"> {booking.service.name}</h2>
                     <div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col flex-1 items-center justify-center border-l border-solid border-secondary">
+                <div className=" p-5 flex flex-col flex-1 items-center justify-center border-l border-solid border-secondary">
                     <p className="text-sm capitalize">{format(booking.date, 'MMMM')} </p>
                     <p className="text-2xl">{format(booking.date, 'do')}</p>
                     <p className="text-sm">{format(booking.date, "hh:mm")}</p>
