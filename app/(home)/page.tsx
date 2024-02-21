@@ -6,7 +6,7 @@ import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import BookingList from "../bookings/_components/booking-list";
+import BookingItem from "../_components/booking-item";
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -44,8 +44,12 @@ export default async function Home() {
 
       <div className="mt-6">
         <h2 className="pl-6 text-sm mb-3 uppercase text-gray-400 text-bold">Schedules</h2>
-        <div className="px-5 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          <BookingList bookings={confimedBookings}/>
+        <div className="px-5 flex  gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {
+            confimedBookings.map((booking) => (
+              <BookingItem booking={booking} key={booking.id} />
+            ))
+          }
         </div>
       </div>
 

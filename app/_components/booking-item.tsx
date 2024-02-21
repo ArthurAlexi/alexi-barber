@@ -33,7 +33,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
                     </div>
                 </div>
 
-                <div className=" p-5 flex flex-col flex-1 items-center justify-center border-l border-solid border-secondary">
+                <div className=" flex flex-col flex-1 items-center justify-center border-l border-solid border-secondary">
                     <p className="text-sm capitalize">{format(booking.date, 'MMMM')} </p>
                     <p className="text-2xl">{format(booking.date, 'do')}</p>
                     <p className="text-sm">{format(booking.date, "hh:mm")}</p>

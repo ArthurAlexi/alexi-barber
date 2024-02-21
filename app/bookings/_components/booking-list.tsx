@@ -16,17 +16,9 @@ interface BookingListProps{
 
 const BookingList = ({bookings} : BookingListProps) => {
     return(
-        <div className=''>
+        <div className='flex gap-3'>
             {
                 bookings.map((booking) => (
-                    // <Sheet key={booking.id}>
-                    //     <SheetTrigger asChild>
-                    //         <BookingItem booking={booking} />
-                    //     </SheetTrigger>
-                    //     <SheetContent>
-                    //         <SheetHeader>Hello</SheetHeader>
-                    //     </SheetContent>
-                    // </Sheet>
                     <BookingItem booking={booking} key={booking.id}/>
                 ))
             }
