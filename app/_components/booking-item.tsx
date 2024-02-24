@@ -12,8 +12,7 @@ import { cancelBooking } from "../_actions/cancel-booking"
 import { toast } from "sonner"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
-import { AlertDialog, AlertDialogFooter, AlertDialogHeader } from "./ui/alert-dialog"
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from "@radix-ui/react-alert-dialog"
+import { AlertDialog, AlertDialogFooter, AlertDialogHeader, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
 
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
@@ -69,7 +68,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                 </SheetHeader>
                 <div className="px-5">
                     <div className="relative h-[180px] w-full mt-6">
-                        <Image src={'/barbershop-map'} alt="barbershop location" fill />
+                        <Image src={'/barbershop-map.png'} alt="barbershop location" fill />
                         <div className="w-full absolute bottom-4 left-0 px-5">
                             <Card className="">
                                 <CardContent className="p-3 flex gap-2">
@@ -118,6 +117,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                         <SheetClose asChild>
                             <Button className="w-full" variant='secondary'> Back </Button>
                         </SheetClose>
+
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
                                 <Button className="w-full" variant='destructive' disabled={isBookingFineshed || isDeleteLoading}>
@@ -132,13 +132,13 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter className="flex-row gap-3">
+                                    <AlertDialogCancel className="w-full mt-0">Back</AlertDialogCancel>
                                     <AlertDialogAction className="w-full" onClick={handleCancelClick}>
                                         {
                                             isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                         }
                                         Confirm
                                     </AlertDialogAction>
-                                    <AlertDialogCancel className="w-full mt-0">Back</AlertDialogCancel>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
