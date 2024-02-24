@@ -33,7 +33,7 @@ export default async function Home() {
   ])
 
   return (
-    <div className="container mx-auto">
+    <div className="md:container mx-auto">
       <div className="px-5 pt-5">
         
         <h2 className="text-xl font-bold"> Hello, {session?.user ?  session.user?.name.split(' ')[0] : 'welcome'} ! </h2>

@@ -32,11 +32,15 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
     }
 
     return (
-        <div>
+        <div className="md:container mx-auto ">
             <BarbershopInfo barbershop={barbershop} />
-            <div className="px-5 flex flex-col gap-4 py-6">
+            <div className="px-5 flex flex-col gap-4 py-6 md:grid md:grid-cols-2">
                 {
-                    barbershop.Service.map((service) => <ServiceItem key={service.id} barbershop={barbershop} service={service} isAuthenticated={!!session?.user}/>)
+                    barbershop.Service.map((service) => 
+                        <div key={service.id} className="md:w-[380px] xl:w-[520px]">
+                            <ServiceItem  barbershop={barbershop} service={service} isAuthenticated={!!session?.user}/>
+                        </div>
+                    )
                 }
             </div>
         </div>

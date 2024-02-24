@@ -25,7 +25,7 @@ const BarbershopInfo = ({barbershop} : BarbershopInfoProps) => {
                 <Button size="icon" variant="outline" className="absolute z-50  top-4 left-4 " onClick={handleBackClick}>
                     <ChevronLeftIcon />
                 </Button>
-                <Sheet>
+                {/* <Sheet>
                     <SheetTrigger asChild>
                         <Button size="icon" variant="outline" className="absolute z-50  top-4 right-4 ">
                             <MenuIcon />
@@ -34,7 +34,7 @@ const BarbershopInfo = ({barbershop} : BarbershopInfoProps) => {
                         <SheetContent>
                             <SideMenu/>
                         </SheetContent>
-                </Sheet>
+                </Sheet> */}
                 <Image src={barbershop.imageUrl} fill alt={barbershop.name} style={{ objectFit: 'cover' }} className="opacity-75" />
             </div>
             <div className="px-5 pt-3  pb-6 border-b border-solid border-secondary">
