@@ -9,7 +9,7 @@ import { signIn, useSession } from "next-auth/react"
 import Image from "next/image"
 import { useEffect, useMemo, useState } from "react"
 import { generateDayTimeList } from "../_helpers/hours"
-import { format, setHours, setMinutes } from "date-fns"
+import { addDays, format, setHours, setMinutes } from "date-fns"
 import { saveBooking } from "../_actions/save-booking"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
@@ -131,7 +131,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                                 <SheetTrigger asChild>
                                     <Button className="text-primary" variant='secondary' onClick={handleBookingClick}>reserve</Button>
                                 </SheetTrigger>
-                                <SheetContent className="p-0">
+                                <SheetContent className="p-0 overflow-y-auto [&::-webkit-scrollbar]:hidden">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                                         make a reservation
                                     </SheetHeader>
@@ -141,7 +141,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                                             mode="single"
                                             selected={date}
                                             onSelect={handleDateClick}
-                                            fromDate={new Date()}
+                                            fromDate={addDays(new Date(),1)}
                                             styles={{
                                                 head_cell: {
                                                     width: "100%",
