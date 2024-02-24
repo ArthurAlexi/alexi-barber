@@ -12,6 +12,8 @@ import { cancelBooking } from "../_actions/cancel-booking"
 import { toast } from "sonner"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import { AlertDialog, AlertDialogFooter, AlertDialogHeader } from "./ui/alert-dialog"
+import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from "@radix-ui/react-alert-dialog"
 
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
@@ -61,12 +63,12 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                     </CardContent>
                 </Card>
             </SheetTrigger>
-            <SheetContent className="px-0">
+            <SheetContent className="px-0 overflow-y-auto [&::-webkit-scrollbar]:hidden">
                 <SheetHeader className="px-5 text-left pb-6 border-b border-solid border-secondary">
                     <SheetTitle>Booking information</SheetTitle>
                 </SheetHeader>
                 <div className="px-5">
-                    <div className="relative h-[180] w-full mt-6">
+                    <div className="relative h-[180px] w-full mt-6">
                         <Image src={'/barbershop-map'} alt="barbershop location" fill />
                         <div className="w-full absolute bottom-4 left-0 px-5">
                             <Card className="">
@@ -116,12 +118,30 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                         <SheetClose asChild>
                             <Button className="w-full" variant='secondary'> Back </Button>
                         </SheetClose>
-                        <Button className="w-full" variant='destructive' disabled={isBookingFineshed || isDeleteLoading} onClick={handleCancelClick}>
-                            {
-                                isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            }
-                            cancel booking
-                        </Button>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button className="w-full" variant='destructive' disabled={isBookingFineshed || isDeleteLoading}>
+                                    cancel booking
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent className="w-[90%]">
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>are you sure you want to cancel?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        Once cancelled, you will not be able to cancel this action
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter className="flex-row gap-3">
+                                    <AlertDialogAction className="w-full" onClick={handleCancelClick}>
+                                        {
+                                            isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        }
+                                        Confirm
+                                    </AlertDialogAction>
+                                    <AlertDialogCancel className="w-full mt-0">Back</AlertDialogCancel>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </SheetFooter>
                 </div>
             </SheetContent>

@@ -4,7 +4,6 @@ import { authOptions } from "../api/auth/[...nextauth]/route"
 import { redirect } from "next/navigation"
 import { db } from "../_lib/prisma"
 import BookingList from "./_components/booking-list"
-import { isFuture, isPast } from "date-fns"
 import BookingItem from "../_components/booking-item"
 
 
@@ -49,27 +48,35 @@ const Bookings = async () => {
         <>
             <Header />
             <div className="px-5 py-6">
-                <h1 className="text-xl font-bold">Schedules</h1>
+                <h1 className="text-xl font-bold mb-6">Schedules</h1>
                 {
-                    confirmedBookings.length > 0 && <h2 className="font-bold text-gray-400 uppercase text-sm mt-6 mb-3">confirmed</h2>
+                    confirmedBookings.length > 0 &&
+                    <>
+                        <h2 className="font-bold text-gray-400 uppercase text-sm mb-3">confirmed</h2>
+                        <div className="flex flex-col gap-3">
+                            {
+                                confirmedBookings.map((booking) => (
+                                    <BookingItem booking={booking} key={booking.id} />
+                                ))
+                            }
+                        </div>
+                    </>
                 }
-                <div className="flex flex-col gap-3">
-                    {
-                        confirmedBookings.map((booking) => (
-                            <BookingItem booking={booking} key={booking.id} />
-                        ))
-                    }
-                </div>
+
                 {
-                    finishededBookings.length > 0 && <h2 className="font-bold text-gray-400 uppercase text-sm mt-6 mb-3">Finished</h2>
+                    finishededBookings.length > 0 &&
+                    <>
+                        <h2 className="font-bold text-gray-400 uppercase text-sm mt-6 mb-3">Finished</h2>
+                        <div className="flex flex-col gap-3">
+                            {
+                                finishededBookings.map((booking) => (
+                                    <BookingItem booking={booking} key={booking.id} />
+                                ))
+                            }
+                        </div>
+                    </>
                 }
-                <div className="flex flex-col gap-3">
-                    {
-                        finishededBookings.map((booking) => (
-                            <BookingItem booking={booking} key={booking.id} />
-                        ))
-                    }
-                </div>
+
             </div>
         </>
     )
