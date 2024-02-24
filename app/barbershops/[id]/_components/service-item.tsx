@@ -131,11 +131,11 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                                 <SheetTrigger asChild>
                                     <Button className="text-primary" variant='secondary' onClick={handleBookingClick}>reserve</Button>
                                 </SheetTrigger>
-                                <SheetContent className="p-0 overflow-y-auto [&::-webkit-scrollbar]:hidden">
+                                <SheetContent className="p-0 overflow-y-auto [&::-webkit-scrollbar]:hidden sm:flex-col">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                                         make a reservation
                                     </SheetHeader>
-                                    <div className="px-5 py-6">
+                                    <div className="px-5 py-6 w-full">
                                         {/* react dayPicker */}
                                         <Calendar
                                             mode="single"
