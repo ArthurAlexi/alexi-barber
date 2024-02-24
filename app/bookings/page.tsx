@@ -44,39 +44,43 @@ const Bookings = async () => {
     ])
 
     return (
-        <>
-            <div className="px-5 py-6">
-                <h1 className="text-xl font-bold mb-6">Schedules</h1>
-                {
-                    confirmedBookings.length > 0 &&
-                    <>
-                        <h2 className="font-bold text-gray-400 uppercase text-sm mb-3">confirmed</h2>
-                        <div className="flex flex-col gap-3">
-                            {
-                                confirmedBookings.map((booking) => (
-                                    <BookingItem booking={booking} key={booking.id} />
-                                ))
-                            }
-                        </div>
-                    </>
-                }
 
-                {
-                    finishededBookings.length > 0 &&
-                    <>
-                        <h2 className="font-bold text-gray-400 uppercase text-sm mt-6 mb-3">Finished</h2>
-                        <div className="flex flex-col gap-3">
-                            {
-                                finishededBookings.map((booking) => (
-                                    <BookingItem booking={booking} key={booking.id} />
-                                ))
-                            }
-                        </div>
-                    </>
-                }
+        <div className="px-5 py-6 md:container mx-auto">
+            <h1 className="text-xl font-bold mb-6">Schedules</h1>
+            {
+                confirmedBookings.length > 0 &&
+                <>
+                    <h2 className="font-bold text-gray-400 uppercase text-sm mb-3">confirmed</h2>
+                    <div className="flex flex-col gap-3 md:grid md:grid-cols-2">
+                        {
+                            confirmedBookings.map((booking) => (
+                                <div key={booking.id} className="md:w-[380px] xl:w-[520px]">
+                                    <BookingItem booking={booking} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                </>
+            }
 
-            </div>
-        </>
+            {
+                finishededBookings.length > 0 &&
+                <>
+                    <h2 className="font-bold text-gray-400 uppercase text-sm mt-6 mb-3">Finished</h2>
+                    <div className="flex flex-col gap-3 md:grid md:grid-cols-2">
+                        {
+                            finishededBookings.map((booking) => (
+                                <div key={booking.id} className="md:w-[380px] xl:w-[520px]">
+                                    <BookingItem booking={booking} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                </>
+            }
+
+        </div>
+
     )
 }
 

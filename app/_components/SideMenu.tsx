@@ -51,7 +51,7 @@ const SideMenu = () => {
                 <Button variant="outline" className="justify-start" asChild>
                     <Link href="/">
                         <HomeIcon size={18} className="mr-2" />
-                        Start
+                        Home
                     </Link>
                 </Button>
 
