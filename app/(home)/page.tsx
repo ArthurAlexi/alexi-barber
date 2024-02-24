@@ -4,10 +4,10 @@ import { ptBR, enUS } from "date-fns/locale";
 import Search from "./_components/search";
 import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import BookingItem from "../_components/booking-item";
 import BookingList from "../bookings/_components/booking-list";
+import { authOptions } from "../_lib/auth";
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
