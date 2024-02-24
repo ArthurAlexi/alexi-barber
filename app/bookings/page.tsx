@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth"
-import Header from "../_components/header"
 import { redirect } from "next/navigation"
 import { db } from "../_lib/prisma"
 import BookingList from "./_components/booking-list"
@@ -46,7 +45,6 @@ const Bookings = async () => {
 
     return (
         <>
-            <Header />
             <div className="px-5 py-6">
                 <h1 className="text-xl font-bold mb-6">Schedules</h1>
                 {

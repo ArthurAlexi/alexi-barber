@@ -1,5 +1,4 @@
 import { format } from "date-fns"
-import Header from "../_components/header";
 import { ptBR, enUS } from "date-fns/locale";
 import Search from "./_components/search";
 import { db } from "../_lib/prisma";
@@ -34,8 +33,7 @@ export default async function Home() {
   ])
 
   return (
-    <div>
-      <Header />
+    <div className="container mx-auto">
       <div className="px-5 pt-5">
         
         <h2 className="text-xl font-bold"> Hello, {session?.user ?  session.user?.name.split(' ')[0] : 'welcome'} ! </h2>

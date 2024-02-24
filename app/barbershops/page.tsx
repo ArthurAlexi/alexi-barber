@@ -1,6 +1,5 @@
 import BarbershopItem from "../(home)/_components/barbershop-item"
 import Search from "../(home)/_components/search"
-import Header from "../_components/header"
 import { db } from "../_lib/prisma"
 import { redirect } from "next/navigation"
 
@@ -25,7 +24,6 @@ const BarbershopsPage = async ({searchParams} : BarbershopsPageProps) => {
     })
     return (
         <>
-            <Header/>
             <div className="px-5 py-6 flex flex-col gap-6">
                 <Search defaultValues={{
                     search: searchParams.search
