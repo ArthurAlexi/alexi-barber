@@ -11,7 +11,7 @@ import { authOptions } from "../_lib/auth";
 export default async function Home() {
   const session = await getServerSession(authOptions)
 
-  const [barbershops, popularBarbershops, confimedBookings] = await Promise.all([
+  const [recommendedBarbershops, barbershops, confimedBookings] = await Promise.all([
     db.barbershop.findMany({}),
     db.barbershop.findMany({
       orderBy: {
@@ -55,7 +55,10 @@ export default async function Home() {
             <div className="px-5 flex  gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
               {
                 confimedBookings.map((booking) => (
-                  <BookingItem booking={booking} key={booking.id} />
+                  // <BookingItem booking={booking} key={booking.id} />
+                  <div className="min-w-[350px] md:w-[420px]" key={booking.id}>
+                    <BookingItem booking={booking}  />
+                  </div>
                 ))
               }
             </div>
@@ -68,7 +71,7 @@ export default async function Home() {
         <h2 className="px-5 text-sm mb-3 uppercase text-gray-400 text-bold">recommended</h2>
         <div className="flex gap-4 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {
-            barbershops.map((barbershop) => 
+            recommendedBarbershops.map((barbershop) => 
             <div className="min-w-[167px] max-w-[167px]" key={barbershop.id}>
               <BarbershopItem  barbershop={barbershop} />
             </div>
@@ -81,7 +84,7 @@ export default async function Home() {
         <h2 className="px-5 text-sm mb-3 uppercase text-gray-400 text-bold">Popular</h2>
         <div className="flex gap-4 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {
-            popularBarbershops.map((barbershop) => 
+            barbershops.map((barbershop) => 
               <div className="min-w-[167px] max-w-[167px]" key={barbershop.id}>
                 <BarbershopItem  barbershop={barbershop} />
               </div>
