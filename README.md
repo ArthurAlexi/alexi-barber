@@ -2,6 +2,8 @@
 
 Alexi-barber is a responsive website for booking barbershop services
 
+[Acesse aqui](https://alexi-barber.vercel.app/)
+
 
 ![image](https://github.com/ArthurAlexi/alexi-barber/assets/90854173/09b37978-64e1-4d39-b662-a6f23a010db9)
 
